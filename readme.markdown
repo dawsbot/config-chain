@@ -3,7 +3,7 @@ USE THIS MODULE TO LOAD ALL YOUR CONFIGURATIONS
 
 ``` js
 
-  var configurator = require('configurator')
+  var configurator = require('CONFIGURATOR')
     , opts = require('optimist').argv //ALWAYS USE OPTIMIST FOR COMMAND LINE OPTIONS.
     , env = opts.env || process.env.YOUR_APP_ENV || 'dev' //SET YOUR ENV LIKE THIS.
 
