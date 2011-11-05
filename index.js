@@ -17,6 +17,23 @@ var exports = module.exports = function () {
 
   return conf
 }
+//recursively find a file...
+
+var find = exports.find = function () {
+  var rel = path.join.apply(null, [].slice.call(arguments))
+  
+  function find(start, rel) {
+    var file = path.join(start, rel)
+    try {
+      fs.statSync(file)
+      return file
+    } catch (err) {
+      if(start != '/')
+        return find(path.dirname(start), rel)
+    }
+  }
+  return find(__dirname, rel)
+}
 
 var json = exports.json = function () {
   var file = path.join.apply(null, [].slice.call(arguments))
