@@ -1,12 +1,17 @@
-{ "name": "config-chain"
-, "version": "0.1.1"
-, "description": "HANDLE CONFIGURATION ONCE AND FOR ALL"
-, "homepage": "http://github.com/dominictarr/config-chain"
-, "repository": 
-  { "type": "git"
-  , "url": "https://github.com/dominictarr/config-chain.git" }
-, "dependencies": {
-    "proto-list": "1"
-  }
-, "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)"
+{
+  "name": "config-chain",
+  "version": "0.1.1",
+  "description": "HANDLE CONFIGURATION ONCE AND FOR ALL",
+  "homepage": "http://github.com/dominictarr/config-chain",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dominictarr/config-chain.git"
+  },
+  "dependencies": {
+    "proto-list": "1",
+    "ini": "~1.0.2"
+  },
+  "bundleDependencies": ["ini"],
+  "REM": "REMEMBER TO REMOVE BUNDLING WHEN/IF ISAACS MERGES ini#7",
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)"
 }
