@@ -20,8 +20,12 @@ USE THIS MODULE TO LOAD ALL YOUR CONFIGURATIONS
   var conf = 
   cc(
     //OVERRIDE SETTINGS WITH COMMAND LINE OPTS
-    opts,  
-    
+    opts,
+
+    //ENV VARS IF PREFIXED WITH 'myApp_'
+
+    cc.env('myApp'), //myApp_foo = 'like this'
+
     //FILE NAMED BY ENV
     path.join(__dirname,  'config.' + env + '.json'), 
 
