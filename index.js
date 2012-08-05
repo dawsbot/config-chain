@@ -51,12 +51,14 @@ var parse = exports.parse = function (content, file) {
 
 var json = exports.json = function () {
   var file = path.join.apply(null, [].slice.call(arguments))
+  var content
   try {
-    parse(fs.readFileSync(file,'utf-8'), file) 
+    content = fs.readFileSync(file,'utf-8')
   } catch (err) {
     err.message += ' when attempting to read configuration from:' + file
     throw err
   }
+  return parse(content)
 }
 
 var env = exports.env = function (prefix, env) {
