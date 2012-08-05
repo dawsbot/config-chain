@@ -10,7 +10,6 @@ function test(obj) {
   var json = cc.parse (_json = JSON.stringify(obj))
   var ini = cc.parse (_ini = INI.stringify(obj))
 
-  console.log(_json, _ini)
   assert.deepEqual(json, ini)
 }
 
