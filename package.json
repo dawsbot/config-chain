@@ -13,5 +13,8 @@
   },
   "bundleDependencies": ["ini"],
   "REM": "REMEMBER TO REMOVE BUNDLING WHEN/IF ISAACS MERGES ini#7",
-  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)"
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
+  "scripts": {
+    "test": "node test/find-file.js && node test/ini.js && node test/env.js"
+  }
 }
