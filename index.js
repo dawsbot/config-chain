@@ -62,7 +62,6 @@ var json = exports.json = function () {
 var env = exports.env = function (prefix, env) {
   env = env || process.env
   var obj = {}
-  prefix = /_$/.test(prefix) ? prefix : prefix + '_'
   var l = prefix.length
   for(var k in env) {
     if((i =k.indexOf(prefix)) === 0)
