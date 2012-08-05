@@ -11,10 +11,13 @@
     "proto-list": "1",
     "ini": "~1.0.2"
   },
+  "devDependencies": {
+    "tap": "0.3.0"
+  },
   "bundleDependencies": ["ini"],
   "REM": "REMEMBER TO REMOVE BUNDLING WHEN/IF ISAACS MERGES ini#7",
   "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
   "scripts": {
-    "test": "node test/find-file.js && node test/ini.js && node test/env.js && node test/broken.js"
+    "test": "tap test/"
   }
 }
