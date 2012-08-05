@@ -14,8 +14,6 @@
   "devDependencies": {
     "tap": "0.3.0"
   },
-  "bundleDependencies": ["ini"],
-  "REM": "REMEMBER TO REMOVE BUNDLING WHEN/IF ISAACS MERGES ini#7",
   "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
   "scripts": {
     "test": "tap test/"
