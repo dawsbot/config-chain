@@ -55,8 +55,7 @@ var json = exports.json = function () {
   try {
     content = fs.readFileSync(file,'utf-8')
   } catch (err) {
-    err.message += ' when attempting to read configuration from:' + file
-    throw err
+    return
   }
   return parse(content)
 }
