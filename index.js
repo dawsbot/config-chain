@@ -2,6 +2,7 @@
 var ProtoList = require('proto-list')
   , path = require('path')
   , fs = require('fs')
+  , ini = require('ini')
 
 var exports = module.exports = function () {
   var args = [].slice.call(arguments)
@@ -35,11 +36,23 @@ var find = exports.find = function () {
   return find(__dirname, rel)
 }
 
+var parse = exports.parse = function (content, file) {
+
+  //if it ends in .json or starts with { then it must be json.
+  //must be done this way, because ini accepts everything.
+  //can't just try and parse it and let it throw if it's not ini.
+  //everything is ini. even json with a systax error.
+
+  if((file && /\.json$/.test(file)) || /^\s*{/.test(content)) 
+    return JSON.parse(content)
+  return ini.parse(content)
+
+}
+
 var json = exports.json = function () {
   var file = path.join.apply(null, [].slice.call(arguments))
-  
   try {
-    return JSON.parse(fs.readFileSync(file,'utf-8'))
+    parse(fs.readFileSync(file,'utf-8'), file) 
   } catch (err) {
     err.message += ' when attempting to read configuration from:' + file
     throw err
