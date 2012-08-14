@@ -87,6 +87,8 @@ function ConfigChain () {
   EE.apply(this)
   ProtoList.apply(this, arguments)
   this._awaiting = 0
+  this._saving = 0
+  this.sources = {}
 }
 
 // multi-inheritance-ish
@@ -98,8 +100,80 @@ Object.keys(EE.prototype).forEach(function (k) {
 })
 ConfigChain.prototype = Object.create(ProtoList.prototype, extras)
 
-ConfigChain.prototype.addFile = function (file, type) {
-  var marker = {file:file}
+ConfigChain.prototype.set = function (key, value, where) {
+  var target
+
+  if (where) {
+    target = this.sources[where]
+    target = target && target.data
+    if (!target) {
+      if (!where) return undefined
+      this.emit('error', new Error('not found '+where))
+    }
+  } else {
+    target = this.list[0]
+    if (!target) {
+      return this.emit('error', new Error('cannot set, no confs!'))
+    }
+  }
+  target[key] = value
+  return this
+}
+
+ConfigChain.prototype.get = function (key, where) {
+  if (where) {
+    where = this.sources[where]
+    if (where) where = where.data
+    if (where && where.hasOwnProperty(key)) return where[key]
+    return undefined
+  }
+  return this.list[0][key]
+}
+
+ConfigChain.prototype.save = function (where, type, cb) {
+  if (typeof type === 'function') cb = type, type = null
+  var target = this.sources[where]
+  if (!target || !(target.path || target.source) || !target.data) {
+    // TODO: maybe save() to a url target could be a PUT or something?
+    // would be easy to swap out with a reddis type thing, too
+    return this.emit('error', new Error('bad save target: '+where))
+  }
+
+  if (target.source) {
+    var pref = target.prefix || ''
+    Object.keys(target.data).forEach(function (k) {
+      target.source[pref + k] = target.data[k]
+    })
+    return this
+  }
+
+  var type = type || target.type
+  var data = target.data
+  if (target.type === 'json') {
+    data = JSON.stringify(data)
+  } else {
+    data = ini.stringify(data)
+  }
+
+  this._saving ++
+  fs.writeFile(target.path, data, 'utf8', function (er) {
+    this._saving --
+    if (er) {
+      if (cb) return cb(er)
+      else return this.emit('error', er)
+    }
+    if (this._saving === 0) {
+      if (cb) cb()
+      this.emit('save')
+    }
+  }.bind(this))
+  return this
+}
+
+ConfigChain.prototype.addFile = function (file, type, name) {
+  name = name || file
+  var marker = {__source__:name}
+  this.sources[name] = { path: file, type: type }
   this.push(marker)
   this._await()
   fs.readFile(file, 'utf8', function (er, data) {
@@ -109,17 +183,22 @@ ConfigChain.prototype.addFile = function (file, type) {
   return this
 }
 
-ConfigChain.prototype.addEnv = function (prefix, env) {
+ConfigChain.prototype.addEnv = function (prefix, env, name) {
   this._await()
+  name = name || 'env'
+  this.sources[name] = { data: env, source: env, prefix: prefix }
   this.push(exports.env(prefix, env))
   process.nextTick(this._resolve.bind(this))
+  return this
 }
 
-ConfigChain.prototype.addUrl = function (req, type) {
+ConfigChain.prototype.addUrl = function (req, type, name) {
   this._await()
-  var marker = {url:req}
-  this.push(marker)
   var href = url.format(req)
+  name = name || href
+  var marker = {__source__:name}
+  this.sources[name] = { href: href, type: type }
+  this.push(marker)
   http.request(req, function (res) {
     var c = []
     var ct = res.headers['content-type']
@@ -129,6 +208,7 @@ ConfigChain.prototype.addUrl = function (req, type) {
            : href.match(/\.json$/) ? 'json'
            : href.match(/\.ini$/) ? 'ini'
            : null
+      marker.type = type
     }
 
     res.on('data', c.push.bind(c))
@@ -151,15 +231,22 @@ ConfigChain.prototype.addString = function (data, file, type, marker) {
 }
 
 ConfigChain.prototype.add = function (data, marker) {
-  if (marker) {
+  if (marker && typeof marker === 'object') {
     var i = this.list.indexOf(marker)
     if (i === -1) {
       return this.emit('error', new Error('bad marker'))
     }
     this.splice(i, 1, data)
+    marker = marker.__source__
+    this.sources[marker] = this.sources[marker] || {}
+    this.sources[marker].data = data
     // we were waiting for this.  maybe emit 'load'
     this._resolve()
   } else {
+    if (typeof marker === 'string') {
+      this.sources[marker] = this.sources[marker] || {}
+      this.sources[marker].data = data
+    }
     // trigger the load event if nothing was already going to do so.
     this._await()
     this.push(data)
