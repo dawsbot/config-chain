@@ -56,7 +56,7 @@ USE THIS MODULE TO LOAD ALL YOUR CONFIGURATIONS
 
 FINALLY, EASY FLEXIBLE CONFIGURATIONS!
 
-##see also: (proto-list)[https://github.com/isaacs/proto-list/]
+##see also: [proto-list](https://github.com/isaacs/proto-list/)
 
 WHATS THAT YOU SAY?
 
