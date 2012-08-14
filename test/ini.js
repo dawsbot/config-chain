@@ -14,5 +14,5 @@ console.log(_ini, _json)
 }
 
 
-test({hello: 'true'})
+test({hello: true})
 
