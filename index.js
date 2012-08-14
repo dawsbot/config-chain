@@ -100,6 +100,24 @@ Object.keys(EE.prototype).forEach(function (k) {
 })
 ConfigChain.prototype = Object.create(ProtoList.prototype, extras)
 
+ConfigChain.prototype.del = function (key, where) {
+  // if not specified where, then delete from the whole chain, scorched
+  // earth style
+  if (where) {
+    var target = this.sources[where]
+    target = target && target.data
+    if (!target) {
+      return this.emit('error', new Error('not found '+where))
+    }
+    delete target[key]
+  } else {
+    for (var i = 0, l = this.list.length; i < l; i ++) {
+      delete this.list[i][key]
+    }
+  }
+  return this
+}
+
 ConfigChain.prototype.set = function (key, value, where) {
   var target
 
@@ -107,8 +125,7 @@ ConfigChain.prototype.set = function (key, value, where) {
     target = this.sources[where]
     target = target && target.data
     if (!target) {
-      if (!where) return undefined
-      this.emit('error', new Error('not found '+where))
+      return this.emit('error', new Error('not found '+where))
     }
   } else {
     target = this.list[0]

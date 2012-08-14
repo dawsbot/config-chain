@@ -60,27 +60,37 @@ test('basic class test', function (t) {
                             env: 'myenv',
                             http: true,
                             ini: true })
+
+      cc.del('blaz', '/tmp/config-chain-class.json')
+      t.same(cc.snapshot, { blaz: 'ini',
+                            json: true,
+                            'x.y.z': 'xyz',
+                            env: 'myenv',
+                            http: true,
+                            ini: true })
+      cc.del('blaz')
+      t.same(cc.snapshot, { json: true,
+                            'x.y.z': 'xyz',
+                            env: 'myenv',
+                            http: true,
+                            ini: true })
       cc.shift()
       t.same(cc.snapshot, { 'x.y.z': 'xyz',
-                            blaz: 'ini',
                             env: 'myenv',
                             http: true,
                             json: true,
                             ini: true })
       cc.shift()
-      t.same(cc.snapshot, { blaz: 'blzaa',
-                            env: 'myenv',
+      t.same(cc.snapshot, { env: 'myenv',
                             http: true,
                             json: true,
                             ini: true })
       cc.shift()
-      t.same(cc.snapshot, { blaz: 'http',
-                            http: true,
+      t.same(cc.snapshot, { http: true,
                             json: true,
                             ini: true })
       cc.shift()
-      t.same(cc.snapshot, { blaz: 'http',
-                            http: true,
+      t.same(cc.snapshot, { http: true,
                             ini: true,
                             json: false })
       cc.shift()
