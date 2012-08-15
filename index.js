@@ -201,12 +201,10 @@ ConfigChain.prototype.addFile = function (file, type, name) {
 }
 
 ConfigChain.prototype.addEnv = function (prefix, env, name) {
-  this._await()
   name = name || 'env'
-  this.sources[name] = { data: env, source: env, prefix: prefix }
-  this.push(exports.env(prefix, env))
-  process.nextTick(this._resolve.bind(this))
-  return this
+  var data = exports.env(prefix, env)
+  this.sources[name] = { data: data, source: env, prefix: prefix }
+  return this.add(data, name)
 }
 
 ConfigChain.prototype.addUrl = function (req, type, name) {
