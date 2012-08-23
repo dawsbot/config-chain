@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/dominictarr/config-chain.png)](http://travis-ci.org/dominictarr/config-chain)
 #config-chain
 
 USE THIS MODULE TO LOAD ALL YOUR CONFIGURATIONS
