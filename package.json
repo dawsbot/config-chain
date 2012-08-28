@@ -1,6 +1,6 @@
 {
   "name": "config-chain",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "HANDLE CONFIGURATION ONCE AND FOR ALL",
   "homepage": "http://github.com/dominictarr/config-chain",
   "repository": {
