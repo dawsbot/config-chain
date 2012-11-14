@@ -33,7 +33,7 @@ var find = exports.find = function () {
       fs.statSync(file)
       return file
     } catch (err) {
-      if(path.dirname(start) == start) // root
+      if(path.dirname(start) !== start) // root
         return find(path.dirname(start), rel)
     }
   }
