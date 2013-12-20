@@ -107,6 +107,9 @@ MAKE A CHAIN AND ADD ALL THE ARGS.
 
 If the arg is a STRING, then it shall be a JSON FILENAME.
 
+If the arg is a STRING and ends in `.js` then it shall be JAVASCRIPT
+  file that is required.
+
 SYNC I/O!
 
 RETURN THE CHAIN!
@@ -133,6 +136,12 @@ specified type or the filename.
 RETURN THE RESULTING OBJECT!
 
 NO I/O!
+
+## cc.javascript(filePath)
+
+Requires the javascript file and returns the exported object!
+
+SYNC I/O
 
 ## cc.env(prefix, env=process.env)
 
