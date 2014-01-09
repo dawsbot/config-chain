@@ -5,6 +5,7 @@ var ProtoList = require('proto-list')
   , EE = require('events').EventEmitter
   , url = require('url')
   , http = require('http')
+  , stripJsonComments = require('strip-json-comments');
 
 var exports = module.exports = function () {
   var args = [].slice.call(arguments)
@@ -39,6 +40,10 @@ var find = exports.find = function () {
   return find(__dirname, rel)
 }
 
+function parseJson(content) {
+    return JSON.parse(stripJsonComments(content));
+}
+
 var parse = exports.parse = function (content, file, type) {
   content = '' + content
   // if we don't know what it is, try json and fall back to ini
@@ -48,10 +53,10 @@ var parse = exports.parse = function (content, file, type) {
     catch (er) { return ini.parse(content) }
   } else if (type === 'json') {
     if (this.emit) {
-      try { return JSON.parse(content) }
+      try { return parseJson(content) }
       catch (er) { this.emit('error', er) }
     } else {
-      return JSON.parse(content)
+      return parseJson(content);
     }
   } else {
     return ini.parse(content)
