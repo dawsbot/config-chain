@@ -12,7 +12,7 @@
     "ini": "1"
   },
   "devDependencies": {
-    "tap": "0.3.0"
+    "tap": "0.4.8"
   },
   "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
   "scripts": {
