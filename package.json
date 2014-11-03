@@ -1,6 +1,12 @@
 {
   "name": "config-chain",
   "version": "1.1.8",
+  "licenses" : [
+    {
+      "type" : "MIT",
+      "url": "https://raw.githubusercontent.com/dominictarr/config-chain/master/LICENCE"
+    }
+  ],
   "description": "HANDLE CONFIGURATION ONCE AND FOR ALL",
   "homepage": "http://github.com/dominictarr/config-chain",
   "repository": {
