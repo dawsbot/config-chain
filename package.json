@@ -1,9 +1,9 @@
 {
   "name": "config-chain",
-  "version": "1.1.8",
-  "licenses" : [
+  "version": "1.1.9",
+  "licenses": [
     {
-      "type" : "MIT",
+      "type": "MIT",
       "url": "https://raw.githubusercontent.com/dominictarr/config-chain/master/LICENCE"
     }
   ],
