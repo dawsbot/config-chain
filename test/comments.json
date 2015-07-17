@@ -1,0 +1,9 @@
+{
+    // Awesome comments
+    "one": {
+        /*
+         * More comments
+         */
+        "hello": "world"
+    }
+}
