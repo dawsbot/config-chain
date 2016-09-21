@@ -8,7 +8,9 @@ var iniObj = { 'x.y.z': 'xyz', blaz: 'ini' }
 var fs = require('fs')
 var ini = require('ini')
 
-fs.writeFileSync('/tmp/config-chain-class.json', JSON.stringify(jsonObj))
+var jsonObjWithComments = '// test comment\n' + JSON.stringify(jsonObj)
+
+fs.writeFileSync('/tmp/config-chain-class.json', jsonObjWithComments)
 fs.writeFileSync('/tmp/config-chain-class.ini', ini.stringify(iniObj))
 
 var http = require('http')
