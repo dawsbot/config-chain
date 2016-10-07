@@ -83,12 +83,23 @@ var env = exports.env = function (prefix, env) {
 }
 
 exports.ConfigChain = ConfigChain
-function ConfigChain () {
+function ConfigChain (base) {
   EE.apply(this)
   ProtoList.apply(this, arguments)
   this._awaiting = 0
   this._saving = 0
   this.sources = {}
+  if (base) {
+    if (base instanceof ConfigChain) {
+      this.list = base.list.slice(0)
+      this.root = base.root
+      for (var k in base.sources) {
+        this.sources[k] = base.sources[k]
+      }
+    } else {
+      this.root = base
+    }
+  }
 }
 
 // multi-inheritance-ish
