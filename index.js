@@ -12,10 +12,14 @@ var exports = module.exports = function () {
 
   while(args.length) {
     var a = args.shift()
-    if(a) conf.push
-          ( 'string' === typeof a
-            ? json(a)
-            : a )
+    if (a) {
+      var payload =
+        (a.substr && a.substr(-3) === '.js') ?
+          javascript(a) : ('string' === typeof a) ?
+          json(a) : a
+
+      conf.push(payload)
+    }
   }
 
   return conf
@@ -68,6 +72,17 @@ var json = exports.json = function () {
     return
   }
   return parse(content, file, 'json')
+}
+
+var javascript = exports.javascript = function (file) {
+  var content
+  try {
+    content = require(file)
+  } catch (err) {
+    return
+  }
+
+  return content
 }
 
 var env = exports.env = function (prefix, env) {
