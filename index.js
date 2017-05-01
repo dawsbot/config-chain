@@ -36,7 +36,7 @@ var find = exports.find = function () {
         return find(path.dirname(start), rel)
     }
   }
-  return find(__dirname, rel)
+  return find(process.cwd(), rel)
 }
 
 var parse = exports.parse = function (content, file, type) {
