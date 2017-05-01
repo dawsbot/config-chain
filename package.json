@@ -14,8 +14,9 @@
     "url": "https://github.com/dominictarr/config-chain.git"
   },
   "dependencies": {
+    "ini": "^1.3.4",
     "proto-list": "~1.2.1",
-    "ini": "^1.3.4"
+    "strip-json-comments": "^2.0.1"
   },
   "devDependencies": {
     "tap": "0.3.0"

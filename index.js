@@ -5,6 +5,7 @@ var ProtoList = require('proto-list')
   , EE = require('events').EventEmitter
   , url = require('url')
   , http = require('http')
+  , stripJsonComments = require('strip-json-comments')
 
 var exports = module.exports = function () {
   var args = [].slice.call(arguments)
@@ -40,7 +41,7 @@ var find = exports.find = function () {
 }
 
 var parse = exports.parse = function (content, file, type) {
-  content = '' + content
+  content = stripJsonComments('' + content)
   // if we don't know what it is, try json and fall back to ini
   // if we know what it is, then it must be that.
   if (!type) {
