@@ -7,7 +7,7 @@
     "type": "git",
     "url": "https://github.com/dominictarr/config-chain.git"
   }
-  //missing , and then this comment. this json is intensionally invalid
+  //missing , and then this comment. this json is intentionally invalid
   "dependencies": {
     "proto-list": "1",
     "ini": "~1.0.2"
