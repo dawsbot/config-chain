@@ -12,10 +12,11 @@ var exports = module.exports = function () {
 
   while(args.length) {
     var a = args.shift()
-    if(a) conf.push
-          ( 'string' === typeof a
-            ? json(a)
-            : a )
+    if(a) {
+      var obj = 'string' === typeof a ? json(a) : a
+      
+      if (obj) conf.push(obj)
+    }
   }
 
   return conf

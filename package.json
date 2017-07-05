@@ -22,6 +22,6 @@
   },
   "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
   "scripts": {
-    "test": "tap test/"
+    "test": "tap test/*.js"
   }
 }
