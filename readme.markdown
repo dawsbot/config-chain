@@ -1,24 +1,33 @@
-# config-chain
+---
 
-A module for loading custom configurations
+<p align="center">
+  <b>
+    ⛓ config-chain ⛓ 
+  </b>
+  <br/>
+  <br/>
+  <br/>
+  ❄️⚠️ This repo is feature frozen ⚠️❄️
+</p>
 
-## NOTE: Feature Freeze
+---
+
+> A module for loading custom configurations
 
 [![locked](http://badges.github.io/stability-badges/dist/locked.svg)](http://github.com/badges/stability-badges)
 
-This module is frozen.
-
-In general, we recommend using [rc](https://github.com/dominictarr/rc) instead,
-but as [npm](https://github.com/npmjs/npm) depends on this, it cannot be changed.
+We suggest using [rc](https://github.com/dominictarr/rc) instead.
+Because [npm depends on this](https://github.com/npm/cli/blob/latest/lib/config/core.js#L1), we're feature frozen so we don't break the world.
 
 
 ## Install
 
 ```sh 
-yarn add config-chain
-
 # npm users
 npm install --save config-chain
+
+# yarn users
+yarn add config-chain
 ```
 
 ## Usage
@@ -131,7 +140,7 @@ var config = cc({
 ```
 
 # API Docs
-
+ 
 ## cc(...args)
 
 MAKE A CHAIN AND ADD ALL THE ARGS.
