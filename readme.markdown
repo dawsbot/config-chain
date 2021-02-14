@@ -5,6 +5,7 @@ A module for loading custom configurations
 ## NOTE: Feature Freeze
 
 [![locked](http://badges.github.io/stability-badges/dist/locked.svg)](http://github.com/badges/stability-badges)
+![](https://travis-ci.org/dawsbot/config-chain.svg?branch=master)
 
 This module is frozen.
 
